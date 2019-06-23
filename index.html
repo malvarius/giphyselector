@@ -11,6 +11,7 @@
     
     <title>GIF Selector</title>
 </head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
 <script
   src="https://code.jquery.com/jquery-3.4.1.js"
   integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
@@ -19,7 +20,7 @@
     <div class="container">
         <div class="row">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Search GIF"
+                <input type="text" class="form-control userIn" placeholder="Search GIF"
                     aria-label="Recipient's username" aria-describedby="basic-addon2">
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary searchBtn" type="button">Add GIF</button>
@@ -29,6 +30,7 @@
         <div class="row btnContain">
 
         </div>
+        <div class="row gifContain"></div>
 
 
 
