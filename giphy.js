@@ -6,7 +6,7 @@ var displayArray = function (array) {
     // first empties button div
     // creates button for each element in array
     for (i = 0; i < array.length; i++) {
-        var but = $("<button class='btn gifBtn btn-outline-secondary mr-2 type='button'></button>");
+        var but = $("<button class='btn gifBtn btn-outline-warning mr-2 mt-2 type='button'></button>");
         but.attr("gif-name",array[i]);
         but.text(array[i])
         $('.btnContain').append(but);
@@ -15,6 +15,7 @@ var displayArray = function (array) {
 displayArray(gameArray);
 
 // on click function to push text from search bar to gameArray and regenerate buttons
+// IMPORTANT: must have axios on click command within search button command or scope of updated array will not have access
 
 $('.searchBtn').on('click', function (event) {
     event.preventDefault();
@@ -23,11 +24,10 @@ $('.searchBtn').on('click', function (event) {
     gameArray.push(input);
     displayArray(gameArray);
     $('.userIn').val("");
-})
+
 
 // axios command  to get gifs based on gif-name attribute , gets 10 gifs
 $('.gifBtn').on('click',function(){
-    console.log($(this).attr('gif-name'))
     $('.gifContain').empty();
     const search = $(this).attr('gif-name');
     const link = "https://api.giphy.com/v1/gifs/search?api_key=mcTa9s1YDz1zMg4Ad6oszrHFMV71V7oo&q="+search+"&limit=10&offset=0&rating=PG&lang=en";
@@ -48,4 +48,5 @@ axios({ url: link,
     console.log(error);
   })
 
+})
 })
