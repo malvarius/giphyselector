@@ -1,13 +1,13 @@
 // default game array
-var gameArray = ['Zelda', 'Donkey Kong', 'World of Warcraft', 'Super Mario'];
+var gameArray = ['Zelda', 'Donkey Kong', 'World of Warcraft', 'Super Mario Bros'];
 
 // function to add buttons based on gameArray titles for each element
 var displayArray = function (array) {
     // first empties button div
     // creates button for each element in array
     for (i = 0; i < array.length; i++) {
-        var but = $("<button class='btn gifBtn btn-outline-warning mr-2 mt-2 type='button'></button>");
-        but.attr("gif-name",array[i]);
+        var but = $("<button class='btn gifBtn btn-outline-warning mr-2 mt-2' type='button'></button>");
+        but.attr('gif-name',array[i]);
         but.text(array[i])
         $('.btnContain').append(but);
     }
@@ -19,11 +19,16 @@ displayArray(gameArray);
 
 $('.searchBtn').on('click', function (event) {
     event.preventDefault();
-    $('.btnContain').empty();
     const input = $('.userIn').val();
     gameArray.push(input);
-    displayArray(gameArray);
-    $('.userIn').val("");
+    var addPic = $("<button class='btn gifBtn btn-outline-warning mr-2 mt-2' type='button'></button>");
+        addPic.attr('gif-name',input);
+        addPic.text(input)
+        $('.btnContain').append(addPic);
+        $('.userIn').val("");
+        console.log(gameArray);
+        console.log(addPic.attr('gif-name'));
+  })
 
 
 // axios command  to get gifs based on gif-name attribute , gets 10 gifs
@@ -35,9 +40,8 @@ axios({ url: link,
         method: "GET",
 })
   .then(function (response) {
-    console.log(response.data.data);
-      for(i=0;i<10;i++){
-    var gip = JSON.stringify(response.data.data[i].images.downsized_medium.url);
+      for(j=0;j<10;j++){
+    var gip = JSON.stringify(response.data.data[j].images.downsized_medium.url);
     const pic = $("<img src="+gip+" class='mt-4 mr-3 gif' alt='blank'>");
     $('.gifContain').append(pic);
       }
@@ -49,4 +53,4 @@ axios({ url: link,
   })
 
 })
-})
+
