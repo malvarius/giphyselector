@@ -15,7 +15,7 @@ var displayArray = function (array) {
 displayArray(gameArray);
 
 // on click function to push text from search bar to gameArray and regenerate buttons
-// IMPORTANT: must have axios on click command within search button command or scope of updated array will not have access
+// IMPORTANT: must have axios on click command use document.body
 
 $('.searchBtn').on('click', function (event) {
     event.preventDefault();
