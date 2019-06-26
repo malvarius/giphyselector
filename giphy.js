@@ -19,38 +19,61 @@ displayArray(gameArray);
 
 $('.searchBtn').on('click', function (event) {
     event.preventDefault();
-    const input = $('.userIn').val();
+    $('.btnContain').empty();
+    const input = $('.userIn').val().trim();
     gameArray.push(input);
-    var addPic = $("<button class='btn gifBtn btn-outline-warning mr-2 mt-2' type='button'></button>");
-        addPic.attr('gif-name',input);
-        addPic.text(input)
-        $('.btnContain').append(addPic);
-        $('.userIn').val("");
-        console.log(gameArray);
-        console.log(addPic.attr('gif-name'));
+    $('.userIn').val("");
+    displayArray(gameArray);
   })
+  // if user pushes enter, function clicks the search btn
+  document.onkeyup = function(e){
+    if (e.keyCode===13){
+      $('.searchBtn').click();
+    }
+  }
 
 
 // axios command  to get gifs based on gif-name attribute , gets 10 gifs
-$('.gifBtn').on('click',function(){
-    $('.gifContain').empty();
-    const search = $(this).attr('gif-name');
-    const link = "https://api.giphy.com/v1/gifs/search?api_key=mcTa9s1YDz1zMg4Ad6oszrHFMV71V7oo&q="+search+"&limit=10&offset=0&rating=PG&lang=en";
+$(document.body).on("click", ".gifBtn", function() {
+  $('.gifContain').empty();
+  const search = $(this).attr('gif-name');
+  const link = "https://api.giphy.com/v1/gifs/search?api_key=mcTa9s1YDz1zMg4Ad6oszrHFMV71V7oo&q="+search+"&limit=10&offset=0&rating=PG&lang=en";
 axios({ url: link,
-        method: "GET",
+      method: "GET",
 })
-  .then(function (response) {
-      for(j=0;j<10;j++){
-    var gip = JSON.stringify(response.data.data[j].images.downsized_medium.url);
-    const pic = $("<img src="+gip+" class='mt-4 mr-3 gif' alt='blank'>");
-    $('.gifContain').append(pic);
-      }
-      
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-  })
+.then(function (response) {
+    for(j=0;j<10;j++){
+  var gip = JSON.stringify(response.data.data[j].images.downsized_medium.url);
+  const pic = $("<img src="+gip+" class='mt-4 mr-3 gif' alt='blank'>");
+  $('.gifContain').append(pic);
+    }
+    
+})
+.catch(function (error) {
+  // handle error
+  console.log(error);
+})
 
 })
+// $('.gifBtn').on('click',function(){
+//     $('.gifContain').empty();
+//     const search = $(this).attr('gif-name');
+//     const link = "https://api.giphy.com/v1/gifs/search?api_key=mcTa9s1YDz1zMg4Ad6oszrHFMV71V7oo&q="+search+"&limit=10&offset=0&rating=PG&lang=en";
+// axios({ url: link,
+//         method: "GET",
+// })
+//   .then(function (response) {
+//       for(j=0;j<10;j++){
+//     var gip = JSON.stringify(response.data.data[j].images.downsized_medium.url);
+//     const pic = $("<img src="+gip+" class='mt-4 mr-3 gif' alt='blank'>");
+//     $('.gifContain').append(pic);
+//       }
+      
+//   })
+//   .catch(function (error) {
+//     // handle error
+//     console.log(error);
+//   })
+
+// })
 
